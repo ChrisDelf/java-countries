@@ -7,18 +7,30 @@ public class Country {
     private static final AtomicLong counter = new AtomicLong();
     private long id;
     private String name;
-    private int populations;
+    private int population;
     private int landMass;
     private int medianAge;
 //Constructor
 
 
-    public Country(long id, String name, int populations, int landMass, int medianAge) {
-        this.id = id;
+    public Country(String name, int population, int landMass, int medianAge) {
+        this.id = counter.incrementAndGet();
         this.name = name;
-        this.populations = populations;
+        this.population = population;
         this.landMass = landMass;
         this.medianAge = medianAge;
+    }
+    // making a clone of the object
+    public Country(Country toClone)
+    {
+        this.id = toClone.getId();
+        this.name= toClone.getName();
+        this.population = toClone.getPopulation();
+        this.landMass= toClone.getLandMass();
+        this.medianAge = toClone.getMedianAge();
+
+
+
     }
     // getters and setters
 
@@ -34,12 +46,12 @@ public class Country {
         this.name = name;
     }
 
-    public int getPopulations() {
-        return populations;
+    public int getPopulation() {
+        return population;
     }
 
-    public void setPopulations(int populations) {
-        this.populations = populations;
+    public void setPopulation(int population) {
+        this.population = population;
     }
 
     public int getLandMass() {
