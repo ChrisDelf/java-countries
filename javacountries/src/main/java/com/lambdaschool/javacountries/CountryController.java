@@ -24,7 +24,7 @@ public class CountryController {
         JavacountriesApplication.ourCountryList.countryList.sort((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName()));
         return new ResponseEntity<>(JavacountriesApplication.ourCountryList.countryList, HttpStatus.OK);
     }
-    //localhost:8080/start/{letter}
+    //localhost:8080/names/start/{letter}
     @GetMapping(value = "/start/{letter}",
             produces = {"application/json"})
     public ResponseEntity<?> getCountry(
@@ -32,7 +32,21 @@ public class CountryController {
                     char letter)
     {
         ArrayList<Country> rtnCountries = JavacountriesApplication.ourCountryList.
-                findCountires(e -> e.getName().toUpperCase().charAt(0) == Character.toUpperCase(letter));
+                findCountries(c -> c.getName().toUpperCase().charAt(0) == Character.toUpperCase(letter));
         return new ResponseEntity<>(rtnCountries, HttpStatus.OK);
     }
+    //localhost:8080/names/size/{number}
+    // getting names greater than equal a certain length
+    @GetMapping(value = "/size/{number}",
+            produces = {"application/json"})
+    public ResponseEntity<?> getCountry(
+            @PathVariable
+                int number)
+    {
+        ArrayList<Country> rtnLength = JavacountriesApplication.ourCountryList.
+                findCountries(c -> c.getName().toUpperCase().length() >= number);
+        rtnLength.sort((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName()));
+        return new ResponseEntity<>(rtnLength, HttpStatus.OK);
+    }
+
 }
